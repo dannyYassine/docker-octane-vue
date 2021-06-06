@@ -1,0 +1,46 @@
+
+networks:
+  swoole:
+
+services:
+  mysql:
+    image: mariadb:10.5.8
+#    image: mysql:latest
+    container_name: docker-swoole-mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: docker-swoole
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - swoole
+
+  php:
+    container_name: docker-swoole-php
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - './api:/usr/src/api'
+    networks:
+      - swoole
+    links:
+      - mysql
+
+  client:
+    container_name: docker-swoole-client
+    build:
+      context: .
+      dockerfile: client.dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - './client:/usr/src/client'
+    networks:
+      - swoole
