@@ -4,7 +4,7 @@ dev:
 	docker-compose up
 dev-daemon:
 	docker-compose up -d
-dk-api-ssh:
+api-ssh:
 	docker exec -it docker-swoole-php /bin/bash
-dk-migrate:
+migrate:
 	docker exec -it docker-swoole-php php artisan migrate
