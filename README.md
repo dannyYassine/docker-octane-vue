@@ -14,7 +14,10 @@ Simple skeleton in order to quickly start a new project with the following techn
         <img style="height: 100%; width: auto" src="https://laravel.com/img/logomark.min.svg">
     </div>
     <div style="width: 150px; height: 75px;">
-        <img style="height: 100%; width: auto" src="https://vuejs.org/images/logo.svg">
+        <img style="width: 150px; height: 75px;" src="https://vuejs.org/images/logo.svg">
+    </div>
+    <div style="width: 150px; height: 75px;">
+        <img style="width: 150px; height: 75px;" src="https://mariadb.org/wp-content/themes/twentynineteen-child/icons/mariadb_org_rgb_h.svg">
     </div>
 </div>
 
