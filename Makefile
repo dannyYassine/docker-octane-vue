@@ -1,5 +1,5 @@
 build:
-	docker-compose up --build
+	docker-compose build --no-cache --parallel mysql php client
 dev:
 	docker-compose up
 dev-daemon:
