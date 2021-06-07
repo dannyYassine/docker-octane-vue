@@ -9,17 +9,24 @@ Simple skeleton in order to quickly start a new project with the following techn
 <br>
 <br>
 
-<div style="display: flex;">
-    <div style="width: 150px; height: 75px;">
+<table>
+  <tr>
+    <td valign="top">
+<div style="width: 150px; height: 75px;">
         <img width="150" height="75" src="https://laravel.com/img/logomark.min.svg">
     </div>
-    <div style="width: 150px; height: 75px;">
+</td>
+    <td valign="top">
+<div style="width: 150px; height: 75px;">
         <img width="150" height="75" src="https://vuejs.org/images/logo.svg">
     </div>
-    <div style="width: 150px; height: 75px;">
+    <td valign="top">
+<div style="width: 150px; height: 75px;">
         <img width="150" height="75" src="https://mariadb.org/wp-content/themes/twentynineteen-child/icons/mariadb_org_rgb_h.svg">
     </div>
-</div>
+</td>
+  </tr>
+</table>
 
 ## Structure
 
@@ -31,7 +38,7 @@ Each technology is containerized for easy development
 
 ## Auto refresh
 
-While the containers are running, the backend and frontend will auto refresh when making changes to the application code.
+While the containers are running, the backend and frontend will auto refresh when making changes to the application code. No need to rebuild the containers.
 
 ## Getting Started
 
