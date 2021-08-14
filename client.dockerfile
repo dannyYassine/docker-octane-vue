@@ -5,4 +5,4 @@ WORKDIR /usr/src/client
 
 RUN yarn
 
-CMD ["yarn", "serve"]
+CMD yarn serve
