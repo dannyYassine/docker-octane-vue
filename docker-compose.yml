@@ -5,8 +5,7 @@ networks:
 
 services:
   mysql:
-    image: mariadb:10.5.8
-    #    image: mysql:latest
+    image: mysql:latest
     container_name: docker-swoole-mysql
     restart: unless-stopped
     tty: true
@@ -25,6 +24,12 @@ services:
     build:
       context: .
       dockerfile: php.dockerfile
+    command: >
+      sh -c "composer install &&
+             yarn install &&
+             yes "1" | php artisan octane:install &&
+             php artisan key:generate &&
+             php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000"
     ports:
       - "8000:8000"
     volumes:
@@ -39,6 +44,9 @@ services:
     build:
       context: .
       dockerfile: client.dockerfile
+    command: >
+      sh -c "yarn &&
+            yarn serve"
     ports:
       - "3000:3000"
     volumes:

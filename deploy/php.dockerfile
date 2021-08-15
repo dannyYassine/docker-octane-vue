@@ -2,6 +2,8 @@ FROM composer:latest as composer
 FROM node:14
 FROM php:8-fpm
 
+COPY ./../api /usr/src/api
+
 WORKDIR /usr/src/api
 
 # install node and npm
@@ -22,7 +24,7 @@ RUN pecl channel-update https://pecl.php.net/channel.xml \
 RUN apt-get update
 RUN apt-get install -y git
 
-# for M1 macbooks support
+# for M1 macbooks
 RUN apt-get install -y mariadb-client
 
 # enable php extensions
@@ -30,3 +32,15 @@ RUN docker-php-ext-enable swoole
 
 # install yarn
 RUN npm install -g yarn
+
+# install dependencies
+RUN composer install;
+RUN yarn;
+
+# setup laravel-octane
+RUN yes "1" | php artisan octane:install
+RUN php artisan key:generate
+
+EXPOSE 8000:8000
+
+CMD php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000

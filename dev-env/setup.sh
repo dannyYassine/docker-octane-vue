@@ -7,7 +7,6 @@
 ###############################################################
 
 # Run Artisan commands to set up keys and configs
-docker-compose exec php php artisan key:generate
 docker-compose exec php php artisan config:clear
 
 # Run all migrations

@@ -1,7 +1,11 @@
 build:
-	docker-compose up --build
+	docker-compose build --parallel
 build-php:
 	docker-compose build php
+build-client:
+	docker-compose build client
+build-mysql:
+	docker-compose build mysql
 build-daemon:
 	docker-compose up -d --build
 dev:
@@ -17,7 +21,12 @@ client-ssh:
 migrate:
 	docker exec -it docker-swoole-php php artisan migrate
 setup:
-	make build-daemon
+	make build
+	make dev-daemon
 	make post-setup
 post-setup:
 	dev-env/setup.sh
+build-deploy-php:
+	docker build -f ./deploy/php.dockerfile -t docker-octane-vue:1.0.0 ./deploy
+run-deploy-php:
+	docker run --name php-deploy docker-octane-vue:1.0.0
