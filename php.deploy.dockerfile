@@ -39,7 +39,6 @@ RUN yarn;
 
 # setup laravel-octane
 RUN yes "1" | php artisan octane:install
-RUN php artisan key:generate
 
 EXPOSE 80:8000
 

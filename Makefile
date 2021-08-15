@@ -27,6 +27,6 @@ setup:
 post-setup:
 	dev-env/setup.sh
 build-deploy-php:
-	docker build -f ./deploy/php.dockerfile -t docker-octane-vue:1.0.0 .
+	docker build -f ./php.deploy.dockerfile -t docker-octane-vue:1.0.0 .
 run-deploy-php:
 	docker run --name php-deploy -p 8000:8000 docker-octane-vue:1.0.0
