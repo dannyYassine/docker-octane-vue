@@ -40,6 +40,4 @@ RUN yarn;
 # setup laravel-octane
 RUN yes "1" | php artisan octane:install
 
-EXPOSE 80:8000
-
-CMD php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000
+CMD php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT
