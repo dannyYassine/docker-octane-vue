@@ -2,7 +2,7 @@ FROM composer:latest as composer
 FROM node:14
 FROM php:8-fpm
 
-COPY api /usr/src/api
+COPY ./api /usr/src/api
 
 WORKDIR /usr/src/api
 
