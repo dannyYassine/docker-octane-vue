@@ -53,3 +53,11 @@ While the containers are running, the backend and frontend will auto refresh whe
 ##### While the containers are running, migrate the database
 
     make migrate
+
+## Deploying to heroku
+
+* Create a pipeline on heroku.
+* Modify the stack to `container`:
+`
+    heroku stack:set container --app <app-name>
+`
