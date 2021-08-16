@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/health', function () {
     return response([
         'data' => 'Alive'
+    ]);
+});
+
+Route::get('/weather/{city}', function (Request $request) {
+    $city = $request->route()->parameter('city');
+    $appId = Env::get('WEATHER_API_KEY');
+
+    $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
+
+    return response([
+        'data' => json_decode($weatherData)
     ]);
 });
 

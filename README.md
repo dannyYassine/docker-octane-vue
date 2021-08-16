@@ -56,6 +56,8 @@ While the containers are running, the backend and frontend will auto refresh whe
 
 ## Deploying to heroku
 
+ref: https://www.youtube.com/watch?v=4axmcEZTE7M
+
 * Create a `heroku.yml` file at the root of the project with:
 ```shell
 build:
@@ -65,8 +67,15 @@ build:
 * Create a pipeline on heroku.
 * Modify the stack to `container` for the pipeline:
 ```bash
-    heroku stack:set container --app <app-name>
+heroku stack:set container --app <app-name>
 ```
 * Create a staging application
 * Add a config var for `APP_KEY`
 * Deploy with branch
+
+#### Under a paid plan
+
+* for zero downtime, set [preboot](https://devcenter.heroku.com/articles/preboot):
+```bash
+heroku features:enable preboot -a <app>
+```
