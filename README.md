@@ -56,8 +56,17 @@ While the containers are running, the backend and frontend will auto refresh whe
 
 ## Deploying to heroku
 
+* Create a `heroku.yml` file at the root of the project with:
+```shell
+build:
+  docker:
+    web: php.deploy.dockerfile
+```
 * Create a pipeline on heroku.
-* Modify the stack to `container`:
-`
+* Modify the stack to `container` for the pipeline:
+```bash
     heroku stack:set container --app <app-name>
-`
+```
+* Create a staging application
+* Add a config var for `APP_KEY`
+* Deploy with branch
