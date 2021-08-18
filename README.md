@@ -44,21 +44,38 @@ While the containers are running, the backend and frontend will auto refresh whe
 
 ##### Build the containers
 
-    make build
+```bash
+make build
+```
 
 ##### Start developing
 
-    make dev
+```bash
+make dev
+```
 
 ##### While the containers are running, migrate the database
 
-    make migrate
+```bash
+make migrate
+```
+
+## PhpUnit on VsCode
+
+#### Update settings.json
+
+update the key in `better-phpunit.docker.paths` to the local path of this project on your machine.
+```json
+"better-phpunit.docker.paths": {
+     "<project_path_on_your_computer>/api": "/usr/src/api"
+},
+```
 
 ## Deploying to heroku
 
 ref: https://www.youtube.com/watch?v=4axmcEZTE7M
 
-* Create a `heroku.yml` file at the root of the project with:
+* Create (if not there) a `heroku.yml` file at the root of the project with:
 ```shell
 build:
   docker:
