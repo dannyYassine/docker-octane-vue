@@ -37,7 +37,4 @@ RUN npm install -g yarn
 RUN composer install;
 RUN yarn;
 
-# setup laravel-octane
-RUN yes "1" | php artisan octane:install
-
 CMD php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT

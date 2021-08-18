@@ -30,3 +30,7 @@ build-deploy-php:
 	docker build -f ./php.deploy.dockerfile -t docker-octane-vue:1.0.0 .
 run-deploy-php:
 	docker run --name php-deploy -p 8000:8000 docker-octane-vue:1.0.0
+test-php:
+	docker exec docker-swoole-php /usr/src/api/vendor/bin/phpunit \
+	--configuration /usr/src/api/phpunit.xml \
+	--colors=auto

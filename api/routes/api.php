@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
+use Laravel\Octane\Facades\Octane;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +22,35 @@ Route::get('/health', function () {
     ]);
 });
 
-Route::get('/weather/{city}', function (Request $request) {
-    $city = $request->route()->parameter('city');
-    $appId = Env::get('WEATHER_API_KEY');
+// Octane::get('/weather/{city}', function (Request $request) {
+//     $city = $request->route()->parameter('city');
+//     $appId = Env::get('WEATHER_API_KEY');
 
-    $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
+//     $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
+
+//     return response([
+//         'data' => json_decode($weatherData)
+//     ]);
+// });
+
+Route::get('/weather/{city}', function (Request $request) {
+
+    $getData = function () use ($request) {
+        $city = $request->route()->parameter('city');
+        $appId = Env::get('WEATHER_API_KEY');
+
+        $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
+
+        return $weatherData;
+    };
+
+    [$data, $data2] = Octane::concurrently([
+        fn () => $getData(),
+        fn () => $getData(),
+    ]);
 
     return response([
-        'data' => json_decode($weatherData)
+        'data' => json_decode($data)
     ]);
 });
 
