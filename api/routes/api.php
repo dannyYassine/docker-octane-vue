@@ -44,13 +44,8 @@ Route::get('/weather/{city}', function (Request $request) {
         return $weatherData;
     };
 
-    [$data, $data2] = Octane::concurrently([
-        fn () => $getData(),
-        fn () => $getData(),
-    ]);
-
     return response([
-        'data' => json_decode($data)
+        'data' => $getData()
     ]);
 });
 
