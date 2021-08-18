@@ -33,6 +33,10 @@ Route::get('/health', function () {
 //     ]);
 // });
 
+Route::get('/phpinfo', function (Request $request) {
+    phpinfo();
+});
+
 Route::get('/weather/{city}', function (Request $request) {
 
     $getData = function () use ($request) {

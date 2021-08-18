@@ -27,6 +27,7 @@ RUN apt-get install -y mariadb-client
 
 # enable php extensions
 RUN docker-php-ext-enable swoole
+RUN docker-php-ext-enable xdebug
 
 # install yarn
 RUN npm install -g yarn
