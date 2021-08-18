@@ -45,7 +45,7 @@ Route::get('/weather/{city}', function (Request $request) {
 
         $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
 
-        return $weatherData;
+        return json_decode($weatherData);
     };
 
     return response([
