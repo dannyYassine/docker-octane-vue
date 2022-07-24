@@ -45,7 +45,7 @@
             "@php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan octane:install"
+            "@php artisan octane:install --server=swoole"
         ]
     },
     "extra": {

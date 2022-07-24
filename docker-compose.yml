@@ -6,7 +6,7 @@ networks:
 services:
   mysql:
     image: mysql:latest
-    container_name: docker-swoole-mysql
+    container_name: db
     restart: unless-stopped
     tty: true
     ports:
@@ -20,7 +20,7 @@ services:
       - swoole
 
   php:
-    container_name: docker-swoole-php
+    container_name: api
     build:
       context: .
       dockerfile: php.dockerfile
@@ -33,13 +33,14 @@ services:
       - "8000:8000"
     volumes:
       - ./api:/usr/src/api
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     networks:
       - swoole
     links:
       - mysql
 
   client:
-    container_name: docker-swoole-client
+    container_name: client
     build:
       context: .
       dockerfile: client.dockerfile

@@ -1,5 +1,8 @@
 build:
+	make pre-step
 	docker-compose build --parallel
+build-no-cache:
+	docker-compose build --parallel --no-cache
 build-php:
 	docker-compose build php
 build-client:
@@ -20,6 +23,8 @@ client-ssh:
 	docker exec -it docker-swoole-php /bin/bash
 migrate:
 	docker exec -it docker-swoole-php php artisan migrate
+pre-setup:
+	dev-env/pre-setup.sh
 setup:
 	make build
 	make dev-daemon

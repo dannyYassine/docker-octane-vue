@@ -22,23 +22,11 @@ Route::get('/health', function () {
     ]);
 });
 
-// Octane::get('/weather/{city}', function (Request $request) {
-//     $city = $request->route()->parameter('city');
-//     $appId = Env::get('WEATHER_API_KEY');
-
-//     $weatherData = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId");
-
-//     return response([
-//         'data' => json_decode($weatherData)
-//     ]);
-// });
-
 Route::get('/phpinfo', function (Request $request) {
-    phpinfo();
+    return phpinfo();
 });
 
 Route::get('/weather/{city}', function (Request $request) {
-
     $getData = function () use ($request) {
         $city = $request->route()->parameter('city');
         $appId = Env::get('WEATHER_API_KEY');
@@ -47,7 +35,6 @@ Route::get('/weather/{city}', function (Request $request) {
 
         return json_decode($weatherData);
     };
-
     return response([
         'data' => $getData()
     ]);
@@ -66,6 +53,7 @@ Route::get('/users', function () {
 
 Route::post('/users', function (Request $request) {
     $user = \App\Models\User::factory($request->all())->create();
+
     return response([
         'data' => $user
     ]);
