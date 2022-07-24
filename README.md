@@ -71,7 +71,42 @@ update the key in `better-phpunit.docker.paths` to the local path of this projec
 },
 ```
 
-## Deploying to heroku
+# Deploy options
+
+The options below are free, great for getting things started, and very easy to scale up with their paid plans.
+
+## Backend
+
+* Heroku https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+* Render https://render.com/docs/web-services
+
+## Frontend
+
+* Firebase https://firebase.google.com/docs/hosting
+* Render https://render.com/docs/static-sites
+
+## Examples
+
+### Deploying to render
+
+while using `render.yaml` https://render.com/docs/blueprint-spec
+
+```
+# A web service
+  - type: web
+    name: api
+    env: docker
+    dockerfilePath: ./deploy/php.api.dockerfile # optional
+    dockerContext: ./api # optional
+# A background worker that consumes a queue
+  - type: worker
+    name: queue
+    env: docker
+    dockerfilePath: ./deploy/php.queue.dockerfile # optional
+    dockerContext: ./api # optional
+```
+
+### Deploying to heroku
 
 ref: https://www.youtube.com/watch?v=4axmcEZTE7M
 
@@ -79,7 +114,8 @@ ref: https://www.youtube.com/watch?v=4axmcEZTE7M
 ```shell
 build:
   docker:
-    web: php.deploy.dockerfile
+    web: deploy/php.api.dockerfile
+    worker: deploy/php.worker.dockerfiler
 ```
 * Create a pipeline on heroku.
 * Modify the stack to `container` for the pipeline:
@@ -90,7 +126,7 @@ heroku stack:set container --app <app-name>
 * Add a config var for `APP_KEY`
 * Deploy with branch
 
-#### Under a paid plan
+##### Under a paid plan
 
 * for zero downtime, set [preboot](https://devcenter.heroku.com/articles/preboot):
 ```bash
