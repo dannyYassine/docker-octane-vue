@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ProcessPodcast;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +52,15 @@ Route::get('/users', function () {
     ]);
 });
 
-Route::post('/users', function (Request $request) {
+Route::get('/job', function () {
+    $pending = ProcessPodcast::dispatch();
+
+    return response([
+        'data' => $pending
+    ]);
+});
+
+Route::get('/users/create', function (Request $request) {
     $user = \App\Models\User::factory($request->all())->create();
 
     return response([

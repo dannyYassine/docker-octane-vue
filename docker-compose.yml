@@ -39,6 +39,24 @@ services:
     links:
       - mysql
 
+  worker:
+    container_name: worker
+    build:
+      context: .
+      dockerfile: php.worker.dockerfile
+    command: >
+      sh -c "composer install &&
+             echo \"Running queue\" &&
+             php artisan queue:listen"
+    volumes:
+      - ./api:/usr/src/api
+    networks:
+      - swoole
+    depends_on:
+      - php
+    links:
+      - mysql
+
   client:
     container_name: client
     build:
