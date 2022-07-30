@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\ProcessPodcast;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
@@ -46,17 +47,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
-    $users = \App\Models\User::all();
+    ProcessPodcast::dispatch();
+
+    [$users, $moreUsers] = Octane::concurrently([
+        fn () => User::all(),
+        fn () => User::all()
+    ]);
+
     return response([
-        'data' => $users
+        'data' => [$users, $moreUsers]
     ]);
 });
 
 Route::get('/job', function () {
-    $pending = ProcessPodcast::dispatch();
+    ProcessPodcast::dispatch();
 
     return response([
-        'data' => $pending
+        'data' => 1
     ]);
 });
 
