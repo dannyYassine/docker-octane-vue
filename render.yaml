@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: api
+    env: docker
+    dockerfilePath: ./deploy/php.deploy.dockerfile
+    dockerContext: ./
+    branch: master
+  - type: worker
+    name: queue
+    env: docker
+    dockerfilePath: ./deploy/php.render.dockerfile
+    dockerContext: ./
+    branch: master

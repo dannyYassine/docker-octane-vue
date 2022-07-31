@@ -24,7 +24,7 @@ services:
     container_name: api
     build:
       context: .
-      dockerfile: php.dockerfile
+      dockerfile: dev-env/php.dockerfile
     command: >
       sh -c "if [ ! -d "vendor" ]; then composer install ; fi &&
              if [ ! -d "node_modules" ]; then yarn install ; fi &&
@@ -46,7 +46,7 @@ services:
     container_name: worker
     build:
       context: .
-      dockerfile: php.worker.dockerfile
+      dockerfile: dev-env/php.worker.dockerfile
     command: >
       sh -c "if [ ! -d "vendor" ]; then composer install ; fi &&
              echo \"Running queue\" &&
@@ -65,7 +65,7 @@ services:
     container_name: client
     build:
       context: .
-      dockerfile: client.dockerfile
+      dockerfile: dev-env/client.dockerfile
     command: >
       sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
             yarn dev --host"
