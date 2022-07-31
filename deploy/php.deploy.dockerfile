@@ -20,9 +20,9 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN pecl channel-update https://pecl.php.net/channel.xml \
     && pecl install swoole
 
+# install packages
 RUN apt-get update
 RUN apt-get install -y git
-
 RUN apt-get install -y mariadb-client
 
 # enable php extensions
