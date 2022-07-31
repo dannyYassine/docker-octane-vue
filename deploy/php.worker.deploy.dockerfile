@@ -28,7 +28,7 @@ RUN pecl channel-update https://pecl.php.net/channel.xml \
 RUN npm install -g yarn
 
 # install dependencies
-RUN composer install;
+RUN composer install --no-dev --no-cache;
 RUN yarn;
 
 CMD php artisan queue:work

@@ -32,7 +32,7 @@ RUN docker-php-ext-enable swoole
 RUN npm install -g yarn
 
 # install dependencies
-RUN composer install;
+RUN composer install --no-dev --no-cache;
 RUN yarn;
 
 CMD php artisan octane:start --server=swoole --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT
