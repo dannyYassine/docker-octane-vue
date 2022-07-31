@@ -1,5 +1,5 @@
 FROM composer:latest as composer
-FROM node:14
+FROM node:16
 FROM php:8-fpm
 
 COPY ./api /usr/src/api
@@ -17,9 +17,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # install php extensions and libs
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl install xdebug
 RUN pecl channel-update https://pecl.php.net/channel.xml \
-    && pecl install xdebug swoole
+    && pecl install swoole
 
 RUN apt-get update
 RUN apt-get install -y git
@@ -37,4 +36,4 @@ RUN npm install -g yarn
 RUN composer install;
 RUN yarn;
 
-CMD php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT
+CMD php artisan octane:start --server=swoole --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT

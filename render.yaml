@@ -1,13 +1,28 @@
 services:
   - type: web
-    name: api
+    name: docker-octane-vue-api
     env: docker
     dockerfilePath: ./deploy/php.deploy.dockerfile
     dockerContext: ./
     branch: master
+    autoDeploy: false
+
   - type: worker
-    name: queue
+    name: docker-octane-vue-queue
     env: docker
-    dockerfilePath: ./deploy/php.render.dockerfile
+    dockerfilePath: ./deploy/php.worker.deploy.dockerfile
     dockerContext: ./
     branch: master
+    autoDeploy: false
+
+  - type: web
+    name: docker-octane-vue-client
+    env: static
+    branch: master
+    buildCommand: cd client && yarn && yarn build
+    staticPublishPath: ./client/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    autoDeploy: false
