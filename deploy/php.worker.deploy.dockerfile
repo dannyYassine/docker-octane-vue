@@ -18,5 +18,6 @@ RUN apt-get install -y mariadb-client
 
 # install dependencies
 RUN composer install;
+RUN ls;
 
 CMD php artisan queue:work
