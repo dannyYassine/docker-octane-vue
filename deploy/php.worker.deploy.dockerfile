@@ -1,4 +1,5 @@
 FROM composer:latest as composer
+FROM node:16
 FROM php:8-fpm
 
 COPY ./api /usr/src/api
@@ -15,9 +16,14 @@ RUN docker-php-ext-install pcntl mysqli pdo pdo_mysql
 RUN apt-get update
 RUN apt-get install -y git
 RUN apt-get install -y mariadb-client
+RUN pecl channel-update https://pecl.php.net/channel.xml \
+    && pecl install swoole
+    
+# install yarn
+RUN npm install -g yarn
 
 # install dependencies
 RUN composer install;
-RUN ls;
+RUN yarn;
 
 CMD php artisan queue:work
