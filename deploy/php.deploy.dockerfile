@@ -23,7 +23,6 @@ RUN pecl channel-update https://pecl.php.net/channel.xml \
 RUN apt-get update
 RUN apt-get install -y git
 
-# for M1 macbooks
 RUN apt-get install -y mariadb-client
 
 # enable php extensions
