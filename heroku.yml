@@ -1,4 +1,4 @@
 build:
   docker:
-    web: deploy/php.heroku.deploy.dockerfile
-    worker: deploy/php.heroku.worker.deploy.dockerfile
+    web: php.heroku.deploy.dockerfile
+    worker: php.heroku.worker.deploy.dockerfile
