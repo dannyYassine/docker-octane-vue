@@ -1,3 +1,4 @@
 build:
   docker:
     web: deploy/php.deploy.dockerfile
+    worker: deploy/php.worker.deploy.dockerfile
