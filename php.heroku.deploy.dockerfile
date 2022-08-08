@@ -17,8 +17,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # install php extensions and libs
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl channel-update https://pecl.php.net/channel.xml \
-    && pecl install swoole
+RUN pecl install openswoole-4.11.1
 
 # install packages
 RUN apt-get update
@@ -26,7 +25,7 @@ RUN apt-get install -y git
 RUN apt-get install -y mariadb-client
 
 # enable php extensions
-RUN docker-php-ext-enable swoole
+RUN docker-php-ext-enable openswoole
 
 # install yarn
 RUN npm install -g yarn
