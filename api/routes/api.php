@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Laravel\Octane\Facades\Octane;
+use Throwable;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/health', function () {
 });
 
 Route::get('/phpinfo', function (Request $request) {
-    return phpinfo();
+    echo phpinfo();
 });
 
 Route::get('/weather/{city}', function (Request $request) {
@@ -47,9 +48,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
-    return response([
-        'data' => User::all()
-    ]);
+    try {
+        return response([
+            'data' => User::all()
+        ]);
+    } catch (Throwable $e) {
+        return response([
+            'error' => $e->getTrace()
+        ]);
+    }
 });
 
 Route::get('/users/concurrent', function () {
