@@ -9,8 +9,3 @@ jobs:
       - run: |
           curl --request GET \
           --url 'https://docker-octane-vue.onrender.com/api/health'
-
-workflows:
-  my-workflow:
-    jobs:
-      - hit-api-healt:
