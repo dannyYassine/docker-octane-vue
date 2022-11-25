@@ -47,6 +47,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
+    return response([
+        'data' => User::all()
+    ]);
+});
+
+Route::get('/users/concurrent', function () {
     ProcessPodcast::dispatch();
 
     [$users, $moreUsers] = Octane::concurrently([
