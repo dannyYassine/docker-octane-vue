@@ -1,0 +1,8 @@
+
+
+jobs:
+  hit-api-health:
+    steps:
+      - run: |
+          curl --request GET \
+          --url 'https://docker-octane-vue.onrender.com/api/health'
