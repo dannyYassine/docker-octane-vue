@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Laravel\Octane\Facades\Octane;
-use Throwable;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +51,7 @@ Route::get('/users', function () {
         return response([
             'data' => User::all()
         ]);
-    } catch (Throwable $e) {
+    } catch (\Throwable $e) {
         return response([
             'error' => $e->getTrace()
         ]);
