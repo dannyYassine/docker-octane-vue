@@ -3,13 +3,14 @@ jobs:
   build:
     docker:
       - image: alpine:3.15
-        # auth:
-        #   username: mydockerhub-user
-        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
-          name: The First Step
+          name: Download curl
           command: |
             apk update && apk add curl curl-dev bash
+      - run:
+          name: Hit health endpoint
+          command: |
             curl --request GET \
             --url 'https://docker-octane-vue.onrender.com/api/health'
+
