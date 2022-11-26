@@ -3,6 +3,7 @@ jobs:
   hit-api-health-endpoint:
     docker:
       - image: cimg/base:2021.04
+    resource_class: small
     steps:
       - run:
           name: Download curl
@@ -19,8 +20,8 @@ workflows:
       - hit-api-health-endpoint
     triggers:
       - schedule:
-          cron: "15 * * * *"
+          cron: "20 * * * *"
           filters:
             branches:
               only:
-                - main
+                - master
