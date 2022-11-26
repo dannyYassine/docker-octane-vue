@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+type User = {
+  id: number,
+  name: string,
+  email: string,
+  password: string
+}
+
 defineProps<{ msg: string }>()
 
 const count = ref(0)
 const name = ref('')
 const email = ref('')
 const password = ref('')
-const users = ref([])
+const users = ref<User[]>([])
 
 function reload() {
   fetch(import.meta.env.VITE_APP_API+'/api/users')
