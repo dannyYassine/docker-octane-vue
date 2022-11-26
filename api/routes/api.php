@@ -47,9 +47,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
+    $getData = function () {
+        return User::get();
+    };
+
     try {
         return response([
-            'data' => User::all()
+            'data' => $getData()
         ]);
     } catch (\Throwable $e) {
         return response([
