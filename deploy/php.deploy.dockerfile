@@ -16,7 +16,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # install php extensions and libs
 RUN docker-php-ext-install pcntl
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql postgres pgsql pdo_pgsql
 RUN pecl channel-update https://pecl.php.net/channel.xml \
     && pecl install swoole
 
