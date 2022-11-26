@@ -55,7 +55,10 @@ Route::get('/users', function () {
         ]);
     } catch (\Throwable $e) {
         return response([
-            'error' => $e->getTrace()
+            'error' => [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace()
+            ]
         ]);
     }
 });
