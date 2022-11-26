@@ -1,9 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+const name = ref('')
+const email = ref('')
+const password = ref('')
+const users = ref([])
+
+function reload() {
+  fetch(import.meta.env.VITE_APP_API+'/api/users')
+  .then((response) => response.json())
+  .then(({data}) => {
+    users.value = data;
+  });
+}
+
+function submit() {
+  fetch(import.meta.env.VITE_APP_API+'/api/users/create'+`?name=${name.value}&email=${email.value}&password=${password.value}`)
+  .then(() => {
+    reload();
+  });
+}
+
+onMounted(async () => {
+  reload();
+})
 </script>
 
 <template>
@@ -29,6 +52,28 @@ const count = ref(0)
     in your IDE for a better DX
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+
+  <button @click="reload">Reload</button>
+  <div>
+    <ul>
+      <li v-for="user in users" :key="user.id">
+      {{user.name}}</li>
+    </ul>
+  </div>
+  <div>
+    <div>
+      <input v-model="name" placeholder="name" />  
+    </div>
+    <div>
+      <input v-model="email" placeholder="email"/>
+    </div>
+    <div>
+      <input v-model="password" placeholder="password"/>
+    </div>
+    <div>
+      <button @click="submit">Submit</button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
