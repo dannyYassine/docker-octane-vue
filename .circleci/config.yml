@@ -6,10 +6,6 @@ jobs:
     resource_class: small
     steps:
       - run:
-          name: Download curl
-          command: |
-            apk update && apk add curl curl-dev bash
-      - run:
           name: Hit health endpoint
           command: |
             curl --request GET \
@@ -20,7 +16,7 @@ workflows:
       - hit-api-health-endpoint
     triggers:
       - schedule:
-          cron: "20 * * * *"
+          cron: "25 * * * *"
           filters:
             branches:
               only:
