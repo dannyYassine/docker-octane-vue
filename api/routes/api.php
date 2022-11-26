@@ -1,8 +1,8 @@
 <?php
 
 use App\Jobs\ProcessPodcast;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Laravel\Octane\Facades\Octane;
@@ -62,12 +62,27 @@ Route::get('/users', function () {
     }
 });
 
+Route::get('/users/eloquent', function () {
+    try {
+        return response([
+            'data' => User::get()
+        ]);
+    } catch (\Throwable $e) {
+        return response([
+            'error' => [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace()
+            ]
+        ]);
+    }
+});
+
 Route::get('/users/concurrent', function () {
-    ProcessPodcast::dispatch();
+    // ProcessPodcast::dispatch();
 
     [$users, $moreUsers] = Octane::concurrently([
-        fn () => User::all(),
-        fn () => User::all()
+        fn () => User::get(),
+        fn () => User::get()
     ]);
 
     return response([
@@ -84,7 +99,7 @@ Route::get('/job', function () {
 });
 
 Route::get('/users/create', function (Request $request) {
-    $user = \App\Models\User::factory($request->all())->create();
+    $user = User::factory($request->all())->create();
 
     return response([
         'data' => $user
