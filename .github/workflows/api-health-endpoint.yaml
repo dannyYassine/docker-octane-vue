@@ -1,10 +1,8 @@
-name: daily-cron
+name: api-health-endpoint
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 * * * *'
 jobs:
-  cron:
+  health-endpoint:
     runs-on: ubuntu-latest
     steps:
       - name: Call our API health route
