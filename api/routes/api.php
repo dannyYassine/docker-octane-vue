@@ -47,13 +47,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
-    $getData = function () {
-        return User::get();
-    };
-
     try {
         return response([
-            'data' => $getData()
+            'data' => \Illuminate\Support\Facades\DB::connection('pgsql')
+                ->table('users')
+                ->get()
         ]);
     } catch (\Throwable $e) {
         return response([
