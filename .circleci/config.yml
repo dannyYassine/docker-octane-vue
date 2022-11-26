@@ -16,7 +16,7 @@ workflows:
       - hit-api-health-endpoint
     triggers:
       - schedule:
-          cron: "25 * * * *"
+          cron: "0 * * * *"
           filters:
             branches:
               only:
