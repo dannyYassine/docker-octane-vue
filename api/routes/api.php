@@ -49,8 +49,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/users', function () {
     try {
         return response([
-            'data' => \Illuminate\Support\Facades\DB::connection('pgsql')
-                ->table('users')
+            'data' => \Illuminate\Support\Facades\DB::table('users')
                 ->get()
         ]);
     } catch (\Throwable $e) {
