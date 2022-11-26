@@ -17,7 +17,7 @@ jobs:
 workflows:
   cron-api-health:
     jobs:
-      - hit-api-health-endpoint:
+      hit-api-health-endpoint
     triggers:
       - schedule:
           cron: "0 * * * *"
