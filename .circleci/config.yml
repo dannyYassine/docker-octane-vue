@@ -13,15 +13,14 @@ jobs:
           command: |
             curl --request GET \
             --url 'https://docker-octane-vue.onrender.com/api/health'
-
 workflows:
   cron-api-health:
     jobs:
-      hit-api-health-endpoint
+      - hit-api-health-endpoint
     triggers:
       - schedule:
           cron: "0 * * * *"
           filters:
             branches:
               only:
-                - master
+                - main
