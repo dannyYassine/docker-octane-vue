@@ -47,39 +47,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', function () {
-    try {
-        return response([
-            'data' => \Illuminate\Support\Facades\DB::table('users')
-                ->get()
-        ]);
-    } catch (\Throwable $e) {
-        return response([
-            'error' => [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTrace()
-            ]
-        ]);
-    }
-});
-
-Route::get('/users/eloquent', function () {
-    try {
-        return response([
-            'data' => User::get()
-        ]);
-    } catch (\Throwable $e) {
-        return response([
-            'error' => [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTrace()
-            ]
-        ]);
-    }
+    return response([
+        'data' => User::get()
+    ]);
 });
 
 Route::get('/users/concurrent', function () {
-    // ProcessPodcast::dispatch();
-
     [$users, $moreUsers] = Octane::concurrently([
         fn () => User::get(),
         fn () => User::get()
@@ -99,7 +72,7 @@ Route::get('/job', function () {
 });
 
 Route::get('/users/create', function (Request $request) {
-    $user = User::factory($request->all())->create();
+    $user = (new User($request->all()))->save();
 
     return response([
         'data' => $user

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,6 +15,10 @@ class ProcessPodcast implements ShouldQueue
 
     public function handle(): void
     {
-        \App\Models\User::factory()->create();
+        (new User([
+            'name' => 'Danny'. now(),
+            'email' => 'danny+'. now() . '@gmail.com',
+            'password' => now()
+        ]))->save();
     }
 }
