@@ -14,16 +14,17 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 # copy composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# install php extensions and libs
-RUN docker-php-ext-install pcntl
-RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql
-RUN pecl channel-update https://pecl.php.net/channel.xml \
-    && pecl install swoole
-
 # install packages
 RUN apt-get update
+RUN apt-get install -y libpq-dev
 RUN apt-get install -y git
 RUN apt-get install -y mariadb-client
+
+# install php extensions and libs
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install mysqli pdo pdo_mysql pgsql pdo_pgsql
+RUN pecl channel-update https://pecl.php.net/channel.xml \
+    && pecl install swoole
 
 # enable php extensions
 RUN docker-php-ext-enable swoole
