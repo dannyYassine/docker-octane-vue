@@ -142,3 +142,8 @@ update the key in `better-phpunit.docker.paths` to the local path of this projec
      "<project_path_on_your_computer>/api": "/usr/src/api"
 },
 ```
+
+## Github codespaces useful links (if you want to use codespaces instead)
+* [devcontainer.json specs](https://containers.dev/implementors/json_reference/)
+* [docker-compose example](https://github.com/microsoft/vscode-dev-containers/blob/main/container-templates/docker-compose/.devcontainer/devcontainer.json)
+* [intro to codespaces](https://dev.to/pwd9000/introduction-to-github-codespaces-building-your-first-dev-container-69l)
