@@ -8,6 +8,9 @@
 #     onOpen: open-preview
 
 tasks:
+  - name: check api env file
+    init: if [ ! -f "api/.env" ]; then cp api/.env.example api/.env ; fi
+    command: docker-compose up
   - name: bootstrap
     init: docker-compose pull
     command: docker-compose up

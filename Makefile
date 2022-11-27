@@ -25,7 +25,7 @@ api-ssh:
 client-ssh:
 	docker exec -it docker-swoole-php /bin/bash
 migrate:
-	docker exec -it docker-swoole-php php artisan migrate
+	docker exec -it api php artisan migrate
 pre-setup:
 	dev-env/pre-setup.sh
 setup:
