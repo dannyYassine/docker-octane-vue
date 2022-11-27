@@ -9,8 +9,7 @@
 
 tasks:
   - name: check api env file
-    init: if [ ! -f "api/.env" ]; then cp api/.env.example api/.env ; fi
-    command: docker-compose up
+    command: if [ ! -f "api/.env" ]; then cp api/.env.example api/.env ; fi
   - name: bootstrap
     init: docker-compose pull
     command: docker-compose up
