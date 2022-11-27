@@ -46,8 +46,9 @@ Technologies:
 Each technology is containerized for easy development
 
     * Backend: laravel-octane with swoole
+    * Worker: laravel queue
     * Frontend: vue client
-    * Data: database (postgres)
+    * Database: postgres
 
 ## Auto refresh
 
