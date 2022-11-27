@@ -5,20 +5,34 @@ networks:
     driver: bridge
 
 services:
-  mysql:
-    image: mysql:latest
+  postgres:
+    image: postgres:14.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
     container_name: db
     restart: unless-stopped
     tty: true
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: docker-swoole
-      MYSQL_ROOT_PASSWORD: secret
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     networks:
       - swoole
+      
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: db
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     MYSQL_DATABASE: docker-swoole
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   networks:
+  #     - swoole
 
   php:
     container_name: api
@@ -38,9 +52,9 @@ services:
     networks:
       - swoole
     depends_on:
-      - mysql
+      - postgres
     links:
-      - mysql
+      - postgres
 
   worker:
     container_name: worker
@@ -57,9 +71,9 @@ services:
       - swoole
     depends_on:
       - php
-      - mysql
+      - postgres
     links:
-      - mysql
+      - postgres
 
   client:
     container_name: client

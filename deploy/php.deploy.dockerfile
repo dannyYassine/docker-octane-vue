@@ -1,5 +1,4 @@
 FROM composer:latest as composer
-FROM node:16
 FROM php:8-fpm
 
 COPY ./api /usr/src/api
@@ -18,22 +17,16 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apt-get update
 RUN apt-get install -y libpq-dev
 RUN apt-get install -y git
-RUN apt-get install -y mariadb-client
 
 # install php extensions and libs
 RUN docker-php-ext-install pcntl
-RUN docker-php-ext-install mysqli pdo pdo_mysql pgsql pdo_pgsql
-RUN pecl channel-update https://pecl.php.net/channel.xml \
-    && pecl install swoole
+RUN docker-php-ext-install pdo pgsql pdo_pgsql
+RUN pecl install openswoole-4.11.1
 
 # enable php extensions
-RUN docker-php-ext-enable swoole
-
-# install yarn
-RUN npm install -g yarn
+RUN docker-php-ext-enable openswoole
 
 # install dependencies
 RUN composer install --no-dev --no-cache;
-RUN yarn;
 
 CMD php artisan octane:start --server=swoole --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT

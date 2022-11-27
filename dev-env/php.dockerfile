@@ -12,17 +12,16 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 # copy composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# install php extensions and libs
-RUN docker-php-ext-install pcntl
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl install xdebug
-RUN pecl install openswoole-4.11.1
-
+# install packages
 RUN apt-get update
+RUN apt-get install -y libpq-dev
 RUN apt-get install -y git
 
-# for M1 macbooks support
-RUN apt-get install -y mariadb-client
+# install php extensions and libs
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install pdo pgsql pdo_pgsql
+RUN pecl install xdebug
+RUN pecl install openswoole-4.11.1
 
 # enable php extensions
 RUN docker-php-ext-enable openswoole

@@ -10,8 +10,8 @@ build-worker:
 	docker-compose build worker
 build-client:
 	docker-compose build client
-build-mysql:
-	docker-compose build mysql
+build-db:
+	docker-compose build postgres
 build-daemon:
 	docker-compose up -d --build
 dev:
