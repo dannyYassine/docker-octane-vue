@@ -1,9 +1,22 @@
+# tasks:
+#   - name: Install frontend dependencies
+#     init: cd client; yarn;
+#     command: yarn dev
+
+# ports:
+#   - port: 3000
+#     onOpen: open-preview
+
 tasks:
-  - name: Install frontend dependencies
-    init: cd client; yarn;
-    command: yarn dev
+  - name: bootstrap
+    init: docker-compose pull
+    command: docker-compose up
 
 ports:
+  - port: 3306
+    onOpen: ignore
+  - port: 8000
+    onOpen: open-preview
   - port: 3000
     onOpen: open-preview
 
