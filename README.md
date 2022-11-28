@@ -39,6 +39,9 @@ Technologies:
 ## Develoment
 
 * Ready to use docker-compose.yml
+
+  or
+  
 * CDE using [Gitpod](https://www.gitpod.io/)
 
 ## Structure
