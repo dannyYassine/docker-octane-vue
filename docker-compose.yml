@@ -40,7 +40,8 @@ services:
       context: .
       dockerfile: dev-env/php.dockerfile
     command: >
-      sh -c "if [ ! -d "vendor" ]; then composer install ; fi &&
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+             if [ ! -d "vendor" ]; then composer install ; fi &&
              if [ ! -d "node_modules" ]; then yarn install ; fi &&
              php artisan key:generate &&
              php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000"
