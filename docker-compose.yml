@@ -5,7 +5,8 @@ networks:
     driver: bridge
 
 services:
-  postgres:
+  db:
+    container_name: db
     image: postgres:14.1-alpine
     environment:
       POSTGRES_USER: postgres
@@ -13,7 +14,6 @@ services:
       POSTGRES_DB: postgres
     ports:
       - '5432:5432'
-    container_name: db
     restart: unless-stopped
     tty: true
     networks:
@@ -34,7 +34,7 @@ services:
   #   networks:
   #     - swoole
 
-  php:
+  api:
     container_name: api
     build:
       context: .
