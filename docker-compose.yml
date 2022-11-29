@@ -62,7 +62,8 @@ services:
       context: .
       dockerfile: dev-env/php.worker.dockerfile
     command: >
-      sh -c "if [ ! -d "vendor" ]; then composer install ; fi &&
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+             if [ ! -d "vendor" ]; then composer install ; fi &&
              echo \"Running queue\" &&
              php artisan queue:listen"
     volumes:
