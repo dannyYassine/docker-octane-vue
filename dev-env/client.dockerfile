@@ -8,12 +8,15 @@ WORKDIR /usr/src/client
 
 RUN pwd
 
-COPY ./client/package*.json ./
+COPY ./client/package.json ./
+COPY ./client/yarn.lock ./
 
 RUN ls
 
 RUN yarn
 
 COPY ./client .
+
+RUN ls
 
 CMD yarn dev --host
