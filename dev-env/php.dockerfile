@@ -30,5 +30,7 @@ RUN docker-php-ext-enable xdebug
 # install yarn
 RUN npm install -g yarn
 
+COPY ./api .
+
 # install dependencies
 RUN composer install --no-dev --no-cache;
