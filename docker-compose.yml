@@ -82,9 +82,7 @@ services:
     build:
       context: .
       dockerfile: dev-env/client.dockerfile
-    # command: >
-    #   sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
-    #         yarn dev --host"
+    command: yarn dev --host
     ports:
       - "3000:3000"
     volumes:

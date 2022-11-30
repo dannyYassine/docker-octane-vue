@@ -16,7 +16,3 @@ RUN ls
 RUN yarn
 
 COPY ./client .
-
-RUN ls
-
-CMD yarn dev --host
