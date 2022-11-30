@@ -86,7 +86,7 @@ services:
     #   sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
     #         yarn dev --host"
     command: >
-            yarn dev --host"
+      sh -c "yarn dev --host"
     ports:
       - "3000:3000"
     volumes:
