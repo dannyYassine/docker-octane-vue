@@ -20,3 +20,6 @@ RUN apt-get install -y mariadb-client
 
 # enable php extensions
 RUN docker-php-ext-enable openswoole
+
+# install dependencies
+RUN composer install --no-dev --no-cache;

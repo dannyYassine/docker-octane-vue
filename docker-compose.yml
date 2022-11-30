@@ -5,19 +5,19 @@ networks:
     driver: bridge
 
 services:
-  # db:
-  #   container_name: db
-  #   image: postgres:14.1-alpine
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: postgres
-  #   ports:
-  #     - '5432:5432'
-  #   restart: unless-stopped
-  #   tty: true
-  #   networks:
-  #     - swoole
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    tty: true
+    networks:
+      - swoole
       
   # mysql:
   #   image: mysql:latest
@@ -34,48 +34,48 @@ services:
   #   networks:
   #     - swoole
 
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: .
-  #     dockerfile: dev-env/php.dockerfile
-  #   command: >
-  #     sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
-  #            if [ ! -d "vendor" ]; then composer install ; fi &&
-  #            if [ ! -d "node_modules" ]; then yarn install ; fi &&
-  #            php artisan key:generate &&
-  #            php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000"
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./api:/usr/src/api
-  #     - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  #   networks:
-  #     - swoole
-  #   depends_on:
-  #     - db
-  #   links:
-  #     - db
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: dev-env/php.dockerfile
+    command: >
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+             if [ ! -d "vendor" ]; then composer install ; fi &&
+             if [ ! -d "node_modules" ]; then yarn install ; fi &&
+             php artisan key:generate &&
+             php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/usr/src/api
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    networks:
+      - swoole
+    depends_on:
+      - db
+    links:
+      - db
 
-  # worker:
-  #   container_name: worker
-  #   build:
-  #     context: .
-  #     dockerfile: dev-env/php.worker.dockerfile
-  #   command: >
-  #     sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
-  #            if [ ! -d "vendor" ]; then composer install ; fi &&
-  #            echo \"Running queue\" &&
-  #            php artisan queue:listen"
-  #   volumes:
-  #     - ./api:/usr/src/api
-  #   networks:
-  #     - swoole
-  #   depends_on:
-  #     - api
-  #     - db
-  #   links:
-  #     - db
+  worker:
+    container_name: worker
+    build:
+      context: .
+      dockerfile: dev-env/php.worker.dockerfile
+    command: >
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+             if [ ! -d "vendor" ]; then composer install ; fi &&
+             echo \"Running queue\" &&
+             php artisan queue:listen"
+    volumes:
+      - ./api:/usr/src/api
+    networks:
+      - swoole
+    depends_on:
+      - api
+      - db
+    links:
+      - db
 
   client:
     container_name: client
