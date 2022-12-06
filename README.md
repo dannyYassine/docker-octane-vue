@@ -1,6 +1,6 @@
 # docker-octane-vue
 
-Simple skeleton in order to quickly start a new project with the following technologies with docker-compose:
+Simple skeleton project in order to quickly start a new project with the following technologies with docker-compose and  [gitpod](https://www.gitpod.io):
 
 * laravel with octane (swoole)
 * vue (with typescript)
