@@ -14,7 +14,7 @@
 	// connected. Corresponds to a volume mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/workspace",
 
-	"forwardPorts": [3000, 8000],
+	"forwardPorts": [3000, 8000, 5432],
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {}
