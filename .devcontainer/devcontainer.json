@@ -8,7 +8,7 @@
 	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
 	"service": "client",
 
-    "runServices": ["api"],
+    "runServices": ["api", "db"],
 
 	// The 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. Corresponds to a volume mount in .devcontainer/docker-compose.yml
