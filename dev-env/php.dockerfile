@@ -21,7 +21,7 @@ RUN apt-get install -y git
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install pdo pgsql pdo_pgsql
 RUN pecl install xdebug
-RUN pecl install openswoole-4.11.1
+RUN pecl install openswoole-22.0.0
 
 # enable php extensions
 RUN docker-php-ext-enable openswoole
@@ -33,4 +33,4 @@ RUN npm install -g yarn
 COPY ./api .
 
 # install dependencies
-RUN composer install --no-dev --no-cache;
+RUN composer install --no-dev --no-cache --ignore-platform-reqs
