@@ -5,7 +5,7 @@ networks:
     driver: bridge
 
 services:
-  db:
+  postgres:
     container_name: postgres
     image: postgres:14.1-alpine
     environment:

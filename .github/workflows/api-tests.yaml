@@ -23,7 +23,7 @@ jobs:
           working-directory: ./api
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
       - name: Start containers
-        run: docker-compose -f "./../docker-compose.yml" up --detach --build --no-deps db
+        run: docker-compose -f "./../docker-compose.yml" up --detach --build --no-deps postgres
       - name: setup env file
         run: cp .env.example .env
       - name: setup key
