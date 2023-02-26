@@ -14,21 +14,21 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 # copy composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# install php extensions and libs
-RUN docker-php-ext-install pcntl mysqli pdo pdo_mysql
-
 # install packages
 RUN apt-get update
+RUN apt-get install -y libpq-dev
 RUN apt-get install -y git
-RUN apt-get install -y mariadb-client
-RUN pecl channel-update https://pecl.php.net/channel.xml \
-    && pecl install swoole
+
+# install php extensions and libs
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install pdo pgsql pdo_pgsql
+RUN pecl install openswoole-22.0.0
     
 # install yarn
 RUN npm install -g yarn
 
 # install dependencies
-RUN composer install --no-dev --no-cache;
+RUN composer install --no-dev --no-cache --ignore-platform-reqs
 RUN yarn;
 
 CMD php artisan queue:work
