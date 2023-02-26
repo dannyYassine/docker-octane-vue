@@ -20,8 +20,14 @@ dev-daemon:
 	docker-compose up -d
 down:
 	docker-compose down
+api-debug:
+	docker exec -it api php artisan serve --host 0.0.0.0 --port 8000
+api-serve:
+	docker exec -it api php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000
 api-ssh:
 	docker exec -it api /bin/bash
+api-restart:
+	docker-compose restart api --no-deps
 client-ssh:
 	docker exec -it docker-swoole-php /bin/bash
 migrate:
