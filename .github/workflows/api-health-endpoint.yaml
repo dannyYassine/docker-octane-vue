@@ -3,8 +3,6 @@ name: api-health-endpoint
 on:
   schedule:
     - cron: '0 * * * *'
-    branches:
-        - master
   workflow_dispatch:
   
 jobs:
