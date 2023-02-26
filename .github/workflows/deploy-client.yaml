@@ -1,4 +1,4 @@
-name: api-deploy
+name: client-deploy
 
 on:
   workflow_dispatch:
@@ -9,4 +9,4 @@ jobs:
     steps:
       - name: Triggering deploy hook
         run: |
-          curl --request GET --url ${{ secrets.ENV_DEPLOY_API_URL }}
+          curl --request GET --url ${{ secrets.ENV_DEPLOY_CLIENT_URL }}
