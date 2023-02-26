@@ -24,6 +24,10 @@ jobs:
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
       - name: Start containers
         run: docker-compose -f "./../docker-compose.yml" up --detach --build --no-deps db
+      - name: setup env file
+        run: cp .env.example .env
+      - name: setup key
+        run: php artisan key:generate
       - name: run-tests
         run: php artisan test
       - name: Stop containers
