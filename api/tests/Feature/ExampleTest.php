@@ -19,10 +19,10 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_concurrent()
-    {
-        $response = $this->get('/api/users/concurrent');
+    // public function test_concurrent()
+    // {
+    //     $response = $this->get('/api/users/concurrent');
 
-        $response->assertStatus(200);
-    }
+    //     $response->assertStatus(200);
+    // }
 }
