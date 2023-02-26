@@ -1,0 +1,13 @@
+name: api-deploy
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  health-endpoint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying api
+        run: |
+          curl --request GET \
+          --url "$ENV_DEPLOY_API_URL"
