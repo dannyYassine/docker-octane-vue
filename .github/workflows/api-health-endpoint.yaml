@@ -1,10 +1,11 @@
 name: api-health-endpoint
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
-    branches:
-        - master
+      - cron: '0 * * * *'
+      branches:
+          - master
+  workflow_dispatch:
+  
 jobs:
   health-endpoint:
     runs-on: ubuntu-latest
