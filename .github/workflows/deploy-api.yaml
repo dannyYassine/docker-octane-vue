@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   
 jobs:
-  health-endpoint:
+  Deploy API:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploying api
+      - name: Triggering deploy hook
         run: |
           curl --request GET \
-          --url $ENV_DEPLOY_API_URL
+          --url env.ENV_DEPLOY_API_URL
