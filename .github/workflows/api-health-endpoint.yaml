@@ -12,7 +12,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: master
-    steps:
       - name: Call our API health route
         run: |
           curl --request GET \
