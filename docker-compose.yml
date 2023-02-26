@@ -39,9 +39,9 @@ services:
     networks:
       - swoole
     depends_on:
-      - db
+      - postgres
     links:
-      - db
+      - postgres
 
   worker:
     container_name: worker
@@ -59,9 +59,9 @@ services:
       - swoole
     depends_on:
       - api
-      - db
+      - postgres
     links:
-      - db
+      - postgres
 
   client:
     container_name: client
