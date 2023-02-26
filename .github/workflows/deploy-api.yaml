@@ -10,4 +10,4 @@ jobs:
       - name: Deploying api
         run: |
           curl --request GET \
-          --url "$ENV_DEPLOY_API_URL"
+          --url $ENV_DEPLOY_API_URL
