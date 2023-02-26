@@ -18,28 +18,12 @@ services:
     tty: true
     networks:
       - swoole
-      
-  # mysql:
-  #   image: mysql:latest
-  #   container_name: db
-  #   restart: unless-stopped
-  #   tty: true
-  #   ports:
-  #     - "3306:3306"
-  #   environment:
-  #     MYSQL_DATABASE: docker-swoole
-  #     MYSQL_ROOT_PASSWORD: secret
-  #     SERVICE_TAGS: dev
-  #     SERVICE_NAME: mysql
-  #   networks:
-  #     - swoole
 
   api:
     container_name: api
     build:
       context: .
       dockerfile: dev-env/php.dockerfile
-#    command: php artisan serve --host=0.0.0.0 --port=8000
     command: tail -f /dev/null
 #    command: >
 #      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
@@ -84,9 +68,10 @@ services:
     build:
       context: .
       dockerfile: dev-env/client.dockerfile
-    command: >
-      sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
-            yarn dev --host"
+    command: tail -f /dev/null
+#    command: >
+#      sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
+#            yarn dev --host"
     ports:
       - "3000:3000"
     volumes:

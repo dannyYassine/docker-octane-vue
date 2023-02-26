@@ -28,6 +28,8 @@ api-ssh:
 	docker exec -it api /bin/bash
 api-restart:
 	docker-compose restart api --no-deps
+client-serve:
+	docker exec -it client yarn dev --host
 client-ssh:
 	docker exec -it docker-swoole-php /bin/bash
 migrate:
