@@ -23,7 +23,7 @@ jobs:
           working-directory: ./api
           composer-options: "--ignore-platform-reqs --optimize-autoloader"
       - name: Start containers
-        run: docker-compose -f "./../docker-compose.yml" up db -d --build --no-deps
+        run: docker-compose -f "./../docker-compose.yml" up --detach --build --no-deps postgres
       - name: run-tests
         run: php artisan test
       - name: Stop containers
