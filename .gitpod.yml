@@ -2,7 +2,7 @@ tasks:
   - name: check api env file
     command: if [ ! -f "api/.env" ]; then cp api/.env.example api/.env ; fi
   - name: bootstrap
-    init: docker-compose pull
+    init: docker-compose pull; docker-compose build
     command: docker-compose up
 
 ports:
