@@ -16,14 +16,16 @@ jobs:
           working-directory: ./api
       - name: Start containers
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach --build
-      - name: setup env file
-        run: docker-compose run api cp .env.example .env
-      - name: setup key
-        run: docker-compose run api php artisan key:generate
-      - name: migrate
-        run: docker-compose run api php artisan migrate
+      # - name: setup env file
+      #   run: docker-compose run api cp .env.example .env
+      # - name: setup key
+      #   run: docker-compose run api php artisan key:generate
+      # - name: migrate
+      #   run: docker-compose run api php artisan migrate
+      # - name: run-tests
+      #   run: docker-compose run api php artisan test
       - name: run-tests
-        run: docker-compose run api php artisan test
+        run: docker-compose run api
       - name: Stop containers
         if: always()
         run: docker-compose -f "./../docker-compose-ci.yml" down
