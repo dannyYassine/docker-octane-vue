@@ -16,9 +16,9 @@ jobs:
           working-directory: ./client
       - name: Build containers
         run: docker-compose -f "./../docker-compose-ci.yml" build client
-      - name: setup env file
+      - name: Install node_modules
         run: docker-compose run api yarn
-      - name: run-tests
+      - name: Run tests
         run: docker-compose run api yarn test
       - name: Stop containers
         if: always()
