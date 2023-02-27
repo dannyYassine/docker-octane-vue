@@ -18,9 +18,15 @@ jobs:
         run: docker-compose -f "./../docker-compose-ci.yml" build postgres api
       - name: Run database
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
-      - name: Migrate
+      - name: setup env file
+        run: docker-compose run api cp .env.example .env
+      - name: Install
+        run: docker-compose run api composer install --no-cache --ignore-platform-reqs
+      - name: setup key
+        run: docker-compose run api php artisan key:generate
+      - name: migrate
         run: docker-compose run api php artisan migrate
-      - name: Run tests
+      - name: run-tests
         run: docker-compose run api php artisan test
       - name: Stop containers
         if: always()

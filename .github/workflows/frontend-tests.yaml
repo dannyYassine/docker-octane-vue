@@ -1,4 +1,3 @@
-
 name: frontend-tests
 
 defaults:
@@ -13,5 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          working-directory: ./client
+      - name: Build containers
+        run: docker-compose -f "./../docker-compose-ci.yml" build client
+      - name: setup env file
+        run: docker-compose run api yarn
       - name: run-tests
-        run: yarn test
+        run: docker-compose run api yarn test
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "./../docker-compose-ci.yml" down

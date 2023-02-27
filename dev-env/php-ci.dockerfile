@@ -20,10 +20,3 @@ RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
 COPY ./api .
-
-# install dependencies
-RUN composer install --no-cache --ignore-platform-reqs
-
-# setup
-RUN cp .env.example .env
-RUN php artisan key:generate
