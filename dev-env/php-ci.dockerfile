@@ -14,6 +14,10 @@ RUN apt-get install -y git
 # # install php extensions and libs
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install pdo pgsql pdo_pgsql
+RUN pecl install xdebug
+
+# enable php extensions
+RUN docker-php-ext-enable xdebug
 
 COPY ./api .
 

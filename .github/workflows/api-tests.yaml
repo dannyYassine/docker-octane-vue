@@ -26,6 +26,12 @@ jobs:
       #   run: docker-compose run api php artisan migrate
       # - name: run-tests
       #   run: docker-compose run api php artisan test
+      - name: Install
+        run: docker-compose run api composer install --no-cache --ignore-platform-reqs
+      - name: Env
+        run: docker-compose run api cp .env.example .env
+      - name: Key
+        run: docker-compose run api php artisan key:generate
       - name: Migrate database
         run: docker-compose run api php artisan migrate
       - name: Run tests
