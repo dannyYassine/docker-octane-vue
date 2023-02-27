@@ -2,32 +2,67 @@ name: api-tests
 
 defaults:
  run:
+  runs-on: ubuntu-latest
   working-directory: ./api
 
 on:
   workflow_dispatch:
   
 jobs:
-  phpunit:
-    runs-on: ubuntu-latest
+  build-container-postgres:
     steps:
       - uses: actions/checkout@v2
         with:
           working-directory: ./api
       - name: Build containers
-        run: docker-compose -f "./../docker-compose-ci.yml" build postgres api
+        run: docker-compose -f "./../docker-compose-ci.yml" build postgres
+  build-container-api:
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
+      - name: Build containers
+        run: docker-compose -f "./../docker-compose-ci.yml" build api
+  run-database:
+    needs: [build-container-postgres,build-container-api]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
       - name: Run database
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
-      - name: Setup env file
-        run: docker-compose run api cp .env.example .env
+  install-composer-dependencies:
+    needs: [build-container-postgres,build-container-api]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
       - name: Install composer dependendies
         run: docker-compose run api composer install --no-cache --ignore-platform-reqs
+  prepare-api-env:
+    needs: [install-composer-dependencies]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
+      - name: Setup env file
+        run: docker-compose run api cp .env.example .env
       - name: Generate env key
         run: docker-compose run api php artisan key:generate
       - name: Migrate database
         run: docker-compose run api php artisan migrate
+  run-tests:
+    needs: [prepare-api-env]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
       - name: Run tests
-        run: docker-compose run api php artisan test
+      run: docker-compose run api php artisan test
+  clean-up:
+    needs: [run-tests]
+    steps:
       - name: Stop containers
         if: always()
         run: docker-compose -f "./../docker-compose-ci.yml" down
