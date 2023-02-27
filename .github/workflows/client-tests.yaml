@@ -17,9 +17,9 @@ jobs:
       - name: Build containers
         run: docker-compose -f "./../docker-compose-ci.yml" build client
       - name: Install node_modules
-        run: docker-compose run api yarn
+        run: docker-compose run client yarn
       - name: Run tests
-        run: docker-compose run api yarn test
+        run: docker-compose run client yarn test
       - name: Stop containers
         if: always()
         run: docker-compose -f "./../docker-compose-ci.yml" down
