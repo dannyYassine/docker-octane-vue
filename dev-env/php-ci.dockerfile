@@ -19,3 +19,9 @@ COPY ./api .
 
 # install dependencies
 RUN composer install --ignore-platform-reqs
+
+# setup
+RUN cp .env.example .env
+RUN php artisan key:generate
+
+CMD php artisan migrate ; php artisan test

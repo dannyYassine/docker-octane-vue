@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: dev-env/php-ci.dockerfile
-    command: tail -f /dev/null
+    # command: tail -f /dev/null
     tty: true
     ports:
       - "8000:8000"
