@@ -58,7 +58,7 @@ jobs:
         with:
           working-directory: ./api
       - name: Run tests
-      run: docker-compose run api php artisan test
+        run: docker-compose run api php artisan test
   clean-up:
     needs: [run-tests]
     steps:
