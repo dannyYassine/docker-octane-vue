@@ -53,7 +53,6 @@ jobs:
         run: docker-compose run api php artisan migrate
   run-tests:
     needs: [prepare-api-env]
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
