@@ -20,7 +20,7 @@ jobs:
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
       - name: Setup env file
         run: docker-compose run api cp .env.example .env
-      - name: Install composer dependendies
+      - name: Install composer dependencies
         run: docker-compose run api composer install --no-cache --ignore-platform-reqs
       - name: Generate env key
         run: docker-compose run api php artisan key:generate
