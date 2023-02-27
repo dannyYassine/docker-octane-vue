@@ -28,8 +28,6 @@ services:
     tty: true
     ports:
       - "8000:8000"
-    volumes:
-      - ./api:/usr/src/api
     networks:
       - swoole
     depends_on:
@@ -57,18 +55,12 @@ services:
   #   links:
   #     - postgres
 
-#   client:
-#     container_name: client
-#     build:
-#       context: .
-#       dockerfile: dev-env/client.dockerfile
-#     command: tail -f /dev/null
-# #    command: >
-# #      sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
-# #            yarn dev --host"
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - ./client:/usr/src/client
-#     networks:
-#       - swoole
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: dev-env/client-ci.dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - swoole
