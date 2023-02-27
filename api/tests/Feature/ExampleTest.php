@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_concurrent()
+    public function test_get_users()
     {
         $response = $this->get('/api/users');
 

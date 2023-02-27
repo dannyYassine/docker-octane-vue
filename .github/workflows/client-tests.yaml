@@ -1,4 +1,4 @@
-name: frontend-tests
+name: client-tests
 
 defaults:
  run:
