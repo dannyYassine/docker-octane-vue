@@ -2,7 +2,6 @@ name: api-tests
 
 defaults:
  run:
-  runs-on: ubuntu-latest
   working-directory: ./api
 
 on:
@@ -10,6 +9,7 @@ on:
   
 jobs:
   build-container-postgres:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,6 +17,7 @@ jobs:
       - name: Build containers
         run: docker-compose -f "./../docker-compose-ci.yml" build postgres
   build-container-api:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,6 +25,7 @@ jobs:
       - name: Build containers
         run: docker-compose -f "./../docker-compose-ci.yml" build api
   run-database:
+    runs-on: ubuntu-latest
     needs: [build-container-postgres,build-container-api]
     steps:
       - uses: actions/checkout@v2
@@ -32,6 +34,7 @@ jobs:
       - name: Run database
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
   install-composer-dependencies:
+    runs-on: ubuntu-latest
     needs: [build-container-postgres,build-container-api]
     steps:
       - uses: actions/checkout@v2
@@ -40,6 +43,7 @@ jobs:
       - name: Install composer dependendies
         run: docker-compose run api composer install --no-cache --ignore-platform-reqs
   prepare-api-env:
+    runs-on: ubuntu-latest
     needs: [install-composer-dependencies]
     steps:
       - uses: actions/checkout@v2
@@ -52,6 +56,7 @@ jobs:
       - name: Migrate database
         run: docker-compose run api php artisan migrate
   run-tests:
+    runs-on: ubuntu-latest
     needs: [prepare-api-env]
     steps:
       - uses: actions/checkout@v2
@@ -60,6 +65,7 @@ jobs:
       - name: Run tests
         run: docker-compose run api php artisan test
   clean-up:
+    runs-on: ubuntu-latest
     needs: [run-tests]
     steps:
       - name: Stop containers
