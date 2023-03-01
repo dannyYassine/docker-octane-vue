@@ -19,14 +19,22 @@ services:
     networks:
       - swoole
 
+  redis:
+    image: redis:7.0
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - swoole
+
   api:
     container_name: api
     build:
       context: .
       dockerfile: dev-env/php.dockerfile
-    command: tail -f /dev/null
-#    command: >
-#      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+    command: >
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+        tail -f /dev/null"
 #             if [ ! -d "vendor" ]; then composer install ; fi &&
 #             if [ ! -d "node_modules" ]; then yarn install ; fi &&
 #             php artisan key:generate &&
@@ -50,9 +58,12 @@ services:
       dockerfile: dev-env/php.worker.dockerfile
     command: >
       sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
-             if [ ! -d "vendor" ]; then composer install ; fi &&
-             echo \"Running queue\" &&
-             php artisan queue:listen"
+      tail -f /dev/null"
+    # command: >
+    #   sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+    #          if [ ! -d "vendor" ]; then composer install ; fi &&
+    #          echo \"Running queue\" &&
+    #          php artisan queue:listen"
     volumes:
       - ./api:/usr/src/api
     networks:
