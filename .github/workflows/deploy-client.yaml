@@ -1,0 +1,12 @@
+name: client-deploy
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  trigger-deploy-hook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Triggering deploy hook
+        run: |
+          curl --request GET --url ${{ secrets.ENV_DEPLOY_CLIENT_URL }}

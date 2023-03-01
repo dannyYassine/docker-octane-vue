@@ -3,15 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use DatabaseTransactions;
+
     public function test_example()
     {
         $response = $this->get('/');
@@ -19,9 +17,9 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_concurrent()
+    public function test_get_users()
     {
-        $response = $this->get('/api/users/concurrent');
+        $response = $this->get('/api/users');
 
         $response->assertStatus(200);
     }

@@ -1,0 +1,73 @@
+version: '3'
+
+networks:
+  swoole:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    tty: true
+    networks:
+      - swoole
+      
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - swoole
+
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: dev-env/php-ci.dockerfile
+    tty: true
+    ports:
+      - "8000:8000"
+    networks:
+      - swoole
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
+  # worker:
+  #   container_name: worker
+  #   build:
+  #     context: .
+  #     dockerfile: dev-env/php.worker.dockerfile
+  #   command: >
+  #     sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
+  #            if [ ! -d "vendor" ]; then composer install ; fi &&
+  #            echo \"Running queue\" &&
+  #            php artisan queue:listen"
+  #   volumes:
+  #     - ./api:/usr/src/api
+  #   networks:
+  #     - swoole
+  #   depends_on:
+  #     - api
+  #     - postgres
+  #   links:
+  #     - postgres
+
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: dev-env/client-ci.dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - swoole

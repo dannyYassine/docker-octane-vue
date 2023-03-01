@@ -21,12 +21,12 @@ RUN apt-get install -y git
 # install php extensions and libs
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install pdo pgsql pdo_pgsql
-RUN pecl install openswoole-4.11.1
+RUN pecl install openswoole-22.0.0
 
 # enable php extensions
 RUN docker-php-ext-enable openswoole
 
 # install dependencies
-RUN composer install --no-dev --no-cache;
+RUN composer install --no-dev --no-cache --ignore-platform-reqs
 
 CMD php artisan octane:start --server=swoole --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT

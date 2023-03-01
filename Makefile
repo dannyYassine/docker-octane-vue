@@ -32,6 +32,8 @@ client-serve:
 	docker exec -it client yarn dev --host
 client-ssh:
 	docker exec -it docker-swoole-php /bin/bash
+worker-listen:
+	php artisan queue:listen
 migrate:
 	docker exec -it api php artisan migrate
 pre-setup:

@@ -1,0 +1,33 @@
+name: api-tests
+
+defaults:
+ run:
+  working-directory: ./api
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./api
+      - name: Build containers
+        run: docker-compose -f "./../docker-compose-ci.yml" build postgres api
+      - name: Run database
+        run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
+      - name: Setup env file
+        run: docker-compose run api cp .env.example .env
+      - name: Install composer dependencies
+        run: docker-compose run api composer install --no-cache --ignore-platform-reqs
+      - name: Generate env key
+        run: docker-compose run api php artisan key:generate
+      - name: Migrate database
+        run: docker-compose run api php artisan migrate
+      - name: Run tests
+        run: docker-compose run api php artisan test
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "./../docker-compose-ci.yml" down

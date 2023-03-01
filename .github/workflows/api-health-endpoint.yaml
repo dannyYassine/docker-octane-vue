@@ -1,10 +1,17 @@
 name: api-health-endpoint
+
 on:
+  schedule:
+    - cron: '0 * * * *'
   workflow_dispatch:
+  
 jobs:
   health-endpoint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Call our API health route
         run: |
           curl --request GET \
