@@ -8,13 +8,13 @@
 	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
 	"service": "api",
 
-    "runServices": ["client", "db"],
+    "runServices": ["client", "postgres", "redis"],
 
 	// The 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. Corresponds to a volume mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/workspace",
 
-	"forwardPorts": [3000, 8000, 5432],
+	"forwardPorts": [3000, 8000, 5432, 6379],
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {}
