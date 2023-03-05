@@ -84,7 +84,5 @@ services:
     command: tail -f /dev/null
     ports:
       - "3001:3001"
-    volumes:
-      - ./client:/usr/src/client
     networks:
       - swoole
