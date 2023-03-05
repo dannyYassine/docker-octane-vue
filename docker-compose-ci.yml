@@ -81,7 +81,6 @@ services:
     build:
       context: .
       dockerfile: dev-env/playwright-ci.dockerfile
-    command: tail -f /dev/null
     ports:
       - "3001:3001"
     networks:
