@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  vitest:
+  playwright:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
       - name: Install client node_modules
         run: docker-compose run client yarn
       - name: Install api composer
-        run: docker-compose run api composer install
+        run: docker-compose run api composer install --no-cache --ignore-platform-reqs
       - name: Install playwright dependencies
         run: docker-compose run playwright yarn
       - name: Up environment
