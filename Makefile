@@ -31,7 +31,7 @@ api-restart:
 client-serve:
 	docker exec -it client yarn dev --host
 client-ssh:
-	docker exec -it docker-swoole-php /bin/bash
+	docker exec -it client /bin/bash
 playwright-ssh:
 	docker exec -it playwright /bin/bash
 worker-listen:
