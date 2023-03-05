@@ -35,10 +35,10 @@ services:
     command: >
       sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
         tail -f /dev/null"
-#             if [ ! -d "vendor" ]; then composer install ; fi &&
-#             if [ ! -d "node_modules" ]; then yarn install ; fi &&
-#             php artisan key:generate &&
-#             php artisan octane:start --server=swoole --watch --workers=1 --max-requests=250 --host=0.0.0.0 --port=8000"
+    #             if [ ! -d "vendor" ]; then composer install ; fi &&
+    #             if [ ! -d "node_modules" ]; then yarn install ; fi &&
+    #             php artisan key:generate &&
+    #             php artisan octane:start --server=swoole --watch --workers=1 --max-requests=250 --host=0.0.0.0 --port=8000"
     ports:
       - "8000:8000"
     volumes:
@@ -57,8 +57,7 @@ services:
       context: .
       dockerfile: dev-env/php.worker.dockerfile
     command: >
-      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
-      tail -f /dev/null"
+      sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi && tail -f /dev/null"
     # command: >
     #   sh -c "if [ ! -f ".env" ]; then cp .env.example .env ; fi &&
     #          if [ ! -d "vendor" ]; then composer install ; fi &&
@@ -80,11 +79,21 @@ services:
       context: .
       dockerfile: dev-env/client.dockerfile
     command: tail -f /dev/null
-#    command: >
-#      sh -c "if [ ! -d "node_modules" ]; then yarn ; fi &&
-#            yarn dev --host"
     ports:
       - "3000:3000"
+    volumes:
+      - ./client:/usr/src/client
+    networks:
+      - swoole
+
+  playwright:
+    container_name: playwright
+    build:
+      context: .
+      dockerfile: dev-env/playwright.dockerfile
+    command: tail -f /dev/null
+    ports:
+      - "3001:3001"
     volumes:
       - ./client:/usr/src/client
     networks:

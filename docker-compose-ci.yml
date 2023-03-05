@@ -18,7 +18,7 @@ services:
     tty: true
     networks:
       - swoole
-      
+
   redis:
     image: redis:6.2-alpine
     restart: always
@@ -33,6 +33,8 @@ services:
       context: .
       dockerfile: dev-env/php-ci.dockerfile
     tty: true
+    command: >
+      sh -c "php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000"
     ports:
       - "8000:8000"
     networks:
@@ -67,7 +69,22 @@ services:
     build:
       context: .
       dockerfile: dev-env/client-ci.dockerfile
+    command: >
+      sh -c "yarn dev --host"
     ports:
       - "3000:3000"
+    networks:
+      - swoole
+
+  playwright:
+    container_name: playwright
+    build:
+      context: .
+      dockerfile: dev-env/playwright-ci.dockerfile
+    command: tail -f /dev/null
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./client:/usr/src/client
     networks:
       - swoole
