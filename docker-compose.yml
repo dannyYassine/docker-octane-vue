@@ -20,6 +20,7 @@ services:
       - swoole
 
   redis:
+    container_name: redis
     image: redis:7.0
     restart: always
     ports:
