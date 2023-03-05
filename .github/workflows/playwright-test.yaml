@@ -23,7 +23,7 @@ jobs:
       # - name: Install playwright dependencies
       #   run: docker-compose run playwright yarn
       - name: Up environment
-        run: docker-compose -f "./../docker-compose-ci.yml" up
+        run: docker-compose -f "./../docker-compose-ci.yml" up --detach
       - name: Run tests
         run: docker-compose run playwright npx playwright test
       - name: Stop containers
