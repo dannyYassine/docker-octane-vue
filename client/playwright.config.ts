@@ -6,6 +6,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 // require('dotenv').config();
 
+process.env.PW_CLIENT_URL = 'http://client:3000'
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */

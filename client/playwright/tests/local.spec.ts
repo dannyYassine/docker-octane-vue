@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('loads the app', async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  await page.goto(process.env.PW_CLIENT_URL);
 
-  await expect(page).toHaveURL(/localhost:3000/);
+  await expect(page).toHaveURL(process.env.PW_CLIENT_URL);
 });
