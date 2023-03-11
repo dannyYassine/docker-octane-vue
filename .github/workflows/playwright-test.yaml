@@ -15,7 +15,7 @@ jobs:
         with:
           working-directory: ./client
       - name: Build containers
-        run: docker-compose -f "./../docker-compose-ci.yml" build
+        run: docker-compose -f "./../docker-compose-ci.yml" build --parallel
       - name: Install playwright dependencies
         run: docker-compose run playwright yarn
       - name: Up environment
