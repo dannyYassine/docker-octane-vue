@@ -23,4 +23,4 @@ RUN docker-php-ext-enable xdebug
 
 COPY ./api .
 
-RUN composer install --no-dev --no-cache --ignore-platform-reqs
+RUN composer install --no-cache --ignore-platform-reqs

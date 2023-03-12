@@ -15,15 +15,13 @@ jobs:
         with:
           working-directory: ./client
       - name: Build containers
-        run: docker-compose -f "./../docker-compose-ci.yml" build
-      # - name: Install client node_modules
-      #   run: docker-compose run client yarn
-      # - name: Install api composer
-      #   run: docker-compose run api composer install --no-cache --ignore-platform-reqs
+        run: docker-compose -f "./../docker-compose-ci.yml" build --parallel
       - name: Install playwright dependencies
         run: docker-compose run playwright yarn
       - name: Up environment
         run: docker-compose -f "./../docker-compose-ci.yml" up --detach api client postgres
+      - name: Wait
+        run: sleep 5
       - name: Run tests
         run: docker-compose run playwright npx playwright test
       - name: Stop containers
