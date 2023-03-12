@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Route;
 use Laravel\Octane\Facades\Octane;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/users', function () {
     return response([
         'data' => User::get()
+    ]);
+});
+
+Route::get('/redis/get', function () {
+    return response([
+        'data' => Cache::get('redis:key')
+    ]);
+});
+
+Route::get('/redis/set', function () {
+    $ttlSeconds = 10;
+    $value = now();
+
+    return response([
+        'data' => Cache::put('redis:key', $value, $ttlSeconds)
     ]);
 });
 

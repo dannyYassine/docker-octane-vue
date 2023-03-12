@@ -1,12 +1,12 @@
 name: api-tests
 
 defaults:
- run:
-  working-directory: ./api
+  run:
+    working-directory: ./api
 
 on:
   workflow_dispatch:
-  
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
@@ -15,9 +15,9 @@ jobs:
         with:
           working-directory: ./api
       - name: Build containers
-        run: docker-compose -f "./../docker-compose-ci.yml" build --parallel postgres api
+        run: docker-compose -f "./../docker-compose-ci.yml" build --parallel postgres api redis
       - name: Run database
-        run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres
+        run: docker-compose -f "./../docker-compose-ci.yml" up --detach postgres redis
       - name: Setup env file
         run: docker-compose run api cp .env.example .env
       - name: Install composer dependencies

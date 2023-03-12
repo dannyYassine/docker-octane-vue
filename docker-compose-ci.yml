@@ -20,7 +20,8 @@ services:
       - swoole
 
   redis:
-    image: redis:6.2-alpine
+    container_name: redis
+    image: redis:7.0
     restart: always
     ports:
       - '6379:6379'
