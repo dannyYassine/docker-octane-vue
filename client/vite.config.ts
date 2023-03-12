@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { configDefaults } from "vitest/config";
@@ -37,6 +38,14 @@ export default defineConfig(({ command, mode }) => {
     plugins: [vue()],
     server: {
       port: 3000,
+    },
+    resolve: {
+      alias: [
+        {
+          find: '@',
+          replacement: path.resolve(__dirname, 'src')
+        }
+      ]
     },
   };
 });
