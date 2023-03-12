@@ -7,12 +7,14 @@
   "better-phpunit.phpunitBinary": "/usr/src/api/vendor/bin/phpunit",
   "better-phpunit.xmlConfigFilepath": "/usr/src/api/phpunit.xml",
   "better-phpunit.docker.paths": {
-    "/workspace/docker-octane-vue/api": "/usr/src/api"
+    "/workspace/docker-octane-vue/api": "/usr/src/api",
+    "${workspaceFolder}": "${workspaceFolder}"
   },
   "better-phpunit.commandSuffix": "--colors=auto",
   "phpunit.phpunit": "/usr/src/api/vendor/bin/phpunit", // Skip to find in common places (vendor, *.phar)
   "phpunit.docker.container": "api", // Skip to select from running containers
   "phpunit.paths": { // Map paths in remote environments.
-    "/workspace/docker-octane-vue/api": "/usr/src/api"
+    "/workspace/docker-octane-vue/api": "/usr/src/api",
+    "${workspaceFolder}": "${workspaceFolder}"
   }
 }

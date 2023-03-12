@@ -7,7 +7,8 @@
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "echo 0",
+    "test": "vitest --segfault-retry=3",
+    "test:clear": "vite test:unit --clearCache",
     "pw:test": "npx playwright test"
   },
   "dependencies": {
@@ -17,8 +18,11 @@
     "@playwright/test": "1.31.2",
     "@types/node": "18.11.9",
     "@vitejs/plugin-vue": "^3.0.0",
+    "@vue/test-utils": "^2.3.1",
+    "jsdom": "^21.1.1",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
+    "vitest": "^0.29.2",
     "vue-tsc": "^0.38.4"
   }
 }
