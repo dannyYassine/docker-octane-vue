@@ -9,5 +9,10 @@
   "better-phpunit.docker.paths": {
     "/workspace/docker-octane-vue/api": "/usr/src/api"
   },
-  "better-phpunit.commandSuffix": "--colors=auto"
+  "better-phpunit.commandSuffix": "--colors=auto",
+  "phpunit.phpunit": "/usr/src/api/vendor/bin/phpunit", // Skip to find in common places (vendor, *.phar)
+  "phpunit.docker.container": "api", // Skip to select from running containers
+  "phpunit.paths": { // Map paths in remote environments.
+    "/workspace/docker-octane-vue/api": "/usr/src/api"
+  }
 }
