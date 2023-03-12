@@ -1,11 +1,11 @@
 import { test, describe, expect } from "vitest";
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import App from "./../../App.vue";
 
 describe("App", () => {
-  describe("when mounting", () => {
-    test("can renderq", () => {
-      const wrapper = mount(App);
+  describe("when shallow mounting", () => {
+    test("can render", () => {
+      const wrapper = shallowMount(App);
 
       expect(wrapper.html()).toBeTruthy();
       expect(wrapper.exists()).toBeTruthy();
