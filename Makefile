@@ -21,7 +21,7 @@ dev-daemon:
 down:
 	docker-compose down
 api-install:
-	docker exec -it api composer install --no-dev --no-cache --ignore-platform-reqs
+	docker exec -it api composer install --no-cache --ignore-platform-reqs
 api-debug:
 	docker exec -it api php artisan serve --host 0.0.0.0 --port 8000
 api-serve:
