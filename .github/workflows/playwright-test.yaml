@@ -19,7 +19,7 @@ jobs:
       - name: Install playwright dependencies
         run: docker-compose run playwright yarn
       - name: Up environment
-        run: docker-compose -f "./../docker-compose-ci.yml" up --detach api client postgres
+        run: docker-compose -f "./../docker-compose-ci.yml" up --detach api client postgres redis
       - name: Wait
         run: sleep 5
       - name: Run tests
