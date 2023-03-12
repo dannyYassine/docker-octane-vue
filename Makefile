@@ -20,6 +20,8 @@ dev-daemon:
 	docker-compose up -d
 down:
 	docker-compose down
+api-install:
+	docker exec -it api composer install --no-dev --no-cache --ignore-platform-reqs
 api-debug:
 	docker exec -it api php artisan serve --host 0.0.0.0 --port 8000
 api-serve:
@@ -29,7 +31,7 @@ api-ssh:
 api-restart:
 	docker-compose restart api --no-deps
 client-serve:
-	docker exec -it client yarn dev --host
+	docker exec -it client yarn dev
 client-ssh:
 	docker exec -it client /bin/bash
 playwright-ssh:
