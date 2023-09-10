@@ -21,11 +21,12 @@ dev-daemon:
 down:
 	docker-compose down
 api-setup:
-	make api-install &&\
-	make api-key &&\
+	make api-install && \
+	make api-key && \
 	make api-migrate-refresh
 api-install:
-	docker exec -it api composer install --no-cache --ignore-platform-reqs && yarn
+	docker exec -it api composer install --no-cache --ignore-platform-reqs && \
+	docker exec -it api yarn
 api-key:
 	docker exec -it api php artisan key:generate
 api-debug:
