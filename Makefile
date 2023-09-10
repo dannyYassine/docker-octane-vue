@@ -20,10 +20,20 @@ dev-daemon:
 	docker-compose up -d
 down:
 	docker-compose down
+api-setup:
+	make api-install &&\
+	make api-key &&\
+	make api-migrate-refresh
 api-install:
-	docker exec -it api composer install --no-cache --ignore-platform-reqs
+	docker exec -it api composer install --no-cache --ignore-platform-reqs && yarn
+api-key:
+	docker exec -it api php artisan key:generate
 api-debug:
 	docker exec -it api php artisan serve --host 0.0.0.0 --port 8000
+api-migrate:
+	docker exec -it api php artisan migrate
+api-migrate-refresh:
+	docker exec -it api php artisan migrate:fresh --seed
 api-serve:
 	docker exec -it api php artisan octane:start --server=swoole --watch --workers=2 --max-requests=250 --host=0.0.0.0 --port=8000
 api-ssh:
