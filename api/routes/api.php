@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Cache;
 
 Route::get('/health', function () {
     return response([
-        'data' => 'Alive'
+        'data' => 'We are alive!'
     ]);
 });
 
