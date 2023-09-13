@@ -146,6 +146,12 @@ update the key in `better-phpunit.docker.paths` to the local path of this projec
 },
 ```
 
+## Debugging with xdebug
+* inside xbude.ini, VS code in codespaces, we need to change `xdebug.client_host`
+* run `hostname -I | cut -d ' ' -f1` in order to get the ip address of the codespace within the codespace main terminal.
+* set it like: xdebug.client_host=172.16.5.4
+* you only set it `xdebug.client_host=host.docker.internal` when you are running VS code in the app, locally.
+
 ## Github codespaces useful links (if you want to use codespaces instead)
 * [devcontainer.json specs](https://containers.dev/implementors/json_reference/)
 * [docker-compose example](https://github.com/microsoft/vscode-dev-containers/blob/main/container-templates/docker-compose/.devcontainer/devcontainer.json)
