@@ -13,7 +13,8 @@
   },
   "better-phpunit.commandSuffix": "--colors=auto",
   "phpunit.phpunit": "vendor/phpunit/phpunit/phpunit", // Skip to find in common places (vendor, *.phar)
-  "phpunit.command": "sudo docker exec api", // Skip to select from running containers
+  // "phpunit.php": "php",
+  "phpunit.command": "sudo docker exec -t api", // Skip to select from running containers
   "phpunit.paths": { // Map paths in remote environments.
     "/workspace/docker-octane-vue/api": "/usr/src/api",
     "/home/ubuntu/docker-octane-vue/api": "/usr/src/api"
