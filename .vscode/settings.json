@@ -3,18 +3,19 @@
     "@": "/Users/dannyyassine/Documents/dev/docker-octane-vue/src"
   },
   "better-phpunit.docker.enable": true,
-  "better-phpunit.docker.command": "docker exec api",
+  "better-phpunit.docker.command": "sudo docker exec api",
   "better-phpunit.phpunitBinary": "/usr/src/api/vendor/bin/phpunit",
   "better-phpunit.xmlConfigFilepath": "/usr/src/api/phpunit.xml",
   "better-phpunit.docker.paths": {
     "/workspace/docker-octane-vue/api": "/usr/src/api",
+    "/home/ubuntu/docker-octane-vue/api": "/usr/src/api",
     "${workspaceFolder}": "${workspaceFolder}"
   },
   "better-phpunit.commandSuffix": "--colors=auto",
-  "phpunit.phpunit": "${workspaceFolder}/api/vendor/bin/phpunit", // Skip to find in common places (vendor, *.phar)
-  "phpunit.docker.container": "api", // Skip to select from running containers
+  "phpunit.phpunit": "vendor/phpunit/phpunit/phpunit", // Skip to find in common places (vendor, *.phar)
+  "phpunit.command": "sudo docker exec api", // Skip to select from running containers
   "phpunit.paths": { // Map paths in remote environments.
     "/workspace/docker-octane-vue/api": "/usr/src/api",
-    "${workspaceFolder}": "${workspaceFolder}"
+    "/home/ubuntu/docker-octane-vue/api": "/usr/src/api"
   }
 }
