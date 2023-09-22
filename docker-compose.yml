@@ -6,7 +6,7 @@ networks:
 
 services:
   postgres:
-    container_name: postgres
+    container_name: docker-octane-vue-postgres
     image: postgres:14.1-alpine
     environment:
       POSTGRES_USER: postgres
@@ -20,7 +20,7 @@ services:
       - swoole
 
   redis:
-    container_name: redis
+    container_name: docker-octane-vue-redis
     image: redis:7.0
     restart: always
     ports:
@@ -29,7 +29,7 @@ services:
       - swoole
 
   api:
-    container_name: api
+    container_name: docker-octane-vue-api
     build:
       context: .
       dockerfile: dev-env/php.dockerfile
@@ -53,7 +53,7 @@ services:
       - postgres
 
   worker:
-    container_name: worker
+    container_name: docker-octane-vue-worker
     build:
       context: .
       dockerfile: dev-env/php.worker.dockerfile
@@ -75,7 +75,7 @@ services:
       - postgres
 
   client:
-    container_name: client
+    container_name: docker-octane-vue-client
     build:
       context: .
       dockerfile: dev-env/client.dockerfile
@@ -88,7 +88,7 @@ services:
       - swoole
 
   playwright:
-    container_name: playwright
+    container_name: docker-octane-vue-playwright
     build:
       context: .
       dockerfile: dev-env/playwright.dockerfile
