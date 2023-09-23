@@ -24,6 +24,9 @@ RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install pdo pgsql pdo_pgsql
 RUN pecl install openswoole-22.0.0
 
+# enable php extensions
+RUN docker-php-ext-enable openswoole
+
 # install yarn
 RUN npm install -g yarn
 
