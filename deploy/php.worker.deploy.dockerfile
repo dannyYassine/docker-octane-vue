@@ -23,7 +23,7 @@ RUN apt-get install -y git
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install pdo pgsql pdo_pgsql
 RUN pecl install openswoole-22.0.0
-    
+
 # install yarn
 RUN npm install -g yarn
 
@@ -31,4 +31,4 @@ RUN npm install -g yarn
 RUN composer install --no-dev --no-cache --ignore-platform-reqs
 RUN yarn;
 
-CMD php artisan queue:work
+CMD php artisan octane:start --server=swoole --workers=2 --max-requests=250 --host=0.0.0.0 --port=$PORT & php artisan queue:work &
